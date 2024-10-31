@@ -11,7 +11,7 @@ import java.time.Instant;
 @AllArgsConstructor
 
 @Document(collection = "questions")
-public class questions extends AbstractPersistable<Long> {
+public class Questions extends AbstractPersistable<Long> {
 
     private int user_id;
     private String content;

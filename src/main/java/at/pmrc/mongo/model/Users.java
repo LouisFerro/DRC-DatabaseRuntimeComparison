@@ -8,10 +8,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 
-@Document(collection = "votes")
-public class votes extends AbstractPersistable<Long> {
+@Document(collection = "users")
+public class Users extends AbstractPersistable<Long> {
 
-    private int user_id;
-    private int question_id;
-    private boolean upvote;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String password;
+    private String gender;
+    private String year;
 }
