@@ -1,4 +1,4 @@
-package pmrc.at.mongo.model;
+package at.pmrc.mongo.model;
 
 import lombok.*;
 import org.springframework.data.jpa.domain.AbstractPersistable;

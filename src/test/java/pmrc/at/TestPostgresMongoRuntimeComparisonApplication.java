@@ -1,5 +1,6 @@
 package pmrc.at;
 
+import at.pmrc.PostgresMongoRuntimeComparisonApplication;
 import org.springframework.boot.SpringApplication;
 
 public class TestPostgresMongoRuntimeComparisonApplication {
