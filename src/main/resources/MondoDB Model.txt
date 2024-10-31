@@ -1,4 +1,4 @@
-MondoDB Model:
+MongoDB Model:
 
 Collection Questions:
 
