@@ -8,7 +8,7 @@
 		<version>3.3.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>pmrc.at</groupId>
+	<groupId>at.pmrc</groupId>
 	<artifactId>PMRC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Postgres Mongo Runtime Comparison</name>

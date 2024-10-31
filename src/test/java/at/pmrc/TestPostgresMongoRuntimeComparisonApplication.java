@@ -1,4 +1,4 @@
-package pmrc.at;
+package at.pmrc;
 
 import org.springframework.boot.SpringApplication;
 
