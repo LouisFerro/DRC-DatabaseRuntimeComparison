@@ -1,0 +1,32 @@
+MondoDB Model:
+
+Collection Questions:
+
+{
+	_id: Int,
+	content: String,
+	user_id: Int,
+	creationDate: Date 
+
+}
+
+Collection Votes:
+
+{
+	_id: Int,
+	user_id: Int,
+	question_id: Int,
+	upvote: Boolean 
+}
+
+Collection Users:
+
+{
+	_id: Int,
+	firstname: String,
+	lastname: String,
+	email: String,
+	password: String,
+	gender: String,
+	class: String.
+}
