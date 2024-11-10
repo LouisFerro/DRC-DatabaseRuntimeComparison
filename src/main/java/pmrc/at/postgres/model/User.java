@@ -1,6 +1,7 @@
 package pmrc.at.postgres.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,8 +13,10 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 @AllArgsConstructor
 
 @Entity(name = "users")
-public class User extends AbstractPersistable<Long> {
+public class User {
 
+    @Id
+    private String user_id;
     private String first_name;
     private String last_name;
     private String email;

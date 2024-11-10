@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pmrc.at.postgres.model.Vote;
 
 @Repository
-public interface VoteRepository extends JpaRepository<Vote, Long> {
+public interface VoteRepository extends JpaRepository<Vote, Integer> {
 }

@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import pmrc.at.postgres.model.Question;
 
 @Repository
-public interface QuestionRepository extends JpaRepository<Question, Long> {
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
 }

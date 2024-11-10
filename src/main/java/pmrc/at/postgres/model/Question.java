@@ -1,6 +1,7 @@
 package pmrc.at.postgres.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +16,10 @@ import java.time.Instant;
 @AllArgsConstructor
 
 @Entity(name = "questions")
-public class Question extends AbstractPersistable<Long> {
+public class Question{
 
+    @Id
+    private int question_id;
     private int user_id;
     private String content;
     private Instant creation_date;
