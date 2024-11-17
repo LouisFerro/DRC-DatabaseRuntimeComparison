@@ -1,6 +1,9 @@
-package pmrc.at.postgres.model;
+package at.pmrc.postgres.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,17 +13,19 @@ import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
+import java.time.LocalDate;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 
 @Entity(name = "questions")
 public class Question{
 
     @Id
-    private int question_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
     private int user_id;
     private String content;
-    private Instant creation_date;
+    private String creation_date;;
 }

@@ -1,49 +1,76 @@
 package at.pmrc.postgres.persistence;
 
-import at.pmrc.mongo.model.*;
-
+import at.pmrc.postgres.model.Question;
+import at.pmrc.postgres.model.User;
+import at.pmrc.postgres.model.Vote;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
-import org.springframework.boot.CommandLineRunner;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
+import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Component
-public class Seeder implements CommandLineRunner {
+public class PostgresSeeder {
 
-    private @Autowired QuestionRepository questionRepository;
-    private @Autowired UserRepository userRepository;
-    private @Autowired VoteRepository voteRepository;
+    @Autowired
+    private QuestionRepository questionRepository;
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    @Autowired
+    private UserRepository userRepository;
 
-    @Override
-    public void run(String... args) {
-        seed("questions.json", questionRepository, Question.class);
-        seed("users.json", userRepository, User.class);
-        seed("votes.json", voteRepository, Vote.class);
+    @Autowired
+    private VoteRepository voteRepository;
+
+    @PostConstruct
+    public void seed() {
+        seedQuestions();
+        seedUsers();
+        seedVotes();
     }
 
-    private <T> void seed(String jsonFile, CrudRepository<T, ?> repository, Class<T> entityClass) {
-        try (InputStream inputStream = getClass().getResourceAsStream("/docker/mongo/dump/" + jsonFile)) {
-            if (inputStream == null) {
-                throw new IllegalArgumentException("File not found: " + jsonFile);
-            }
-
-            // Use ObjectMapper to map the JSON directly to a List of the entity type
-            List<T> records = mapper.readValue(inputStream, mapper.getTypeFactory().constructCollectionType(List.class, entityClass));
-
-            repository.saveAll(records);
-            System.out.println("Seeded data for " + entityClass.getSimpleName() + " from " + jsonFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.err.println("Failed to seed data for " + entityClass.getSimpleName() + " from " + jsonFile);
+    private void seedQuestions() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Register JavaTimeModule
+        TypeReference<List<Question>> typeReference = new TypeReference<List<Question>>() {};
+        InputStream inputStream = TypeReference.class.getResourceAsStream("/medium dump/questions.json");
+        try {
+            List<Question> questions = mapper.readValue(inputStream, typeReference);
+            questionRepository.saveAll(questions);
+            System.out.println("Questions Seeded!");
+        } catch (IOException e) {
+            System.out.println("Unable to seed questions: " + e.getMessage());
         }
     }
 
+    private void seedUsers() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Register JavaTimeModule
+        TypeReference<List<User>> typeReference = new TypeReference<List<User>>() {};
+        InputStream inputStream = TypeReference.class.getResourceAsStream("/medium dump/users.json");
+        try {
+            List<User> users = mapper.readValue(inputStream, typeReference);
+            userRepository.saveAll(users);
+            System.out.println("Users Seeded!");
+        } catch (IOException e) {
+            System.out.println("Unable to seed users: " + e.getMessage());
+        }
+    }
+
+    private void seedVotes() {
+        ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Register JavaTimeModule
+        TypeReference<List<Vote>> typeReference = new TypeReference<List<Vote>>() {};
+        InputStream inputStream = TypeReference.class.getResourceAsStream("/medium dump/votes.json");
+        try {
+            List<Vote> votes = mapper.readValue(inputStream, typeReference);
+            voteRepository.saveAll(votes);
+            System.out.println("Votes Seeded!");
+        } catch (IOException e) {
+            System.out.println("Unable to seed votes: " + e.getMessage());
+        }
+    }
 }

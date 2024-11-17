@@ -1,6 +1,8 @@
-package pmrc.at.postgres.model;
+package at.pmrc.postgres.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -9,16 +11,17 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor
 
 @Entity(name = "users")
 public class User {
 
     @Id
-    private String user_id;
-    private String first_name;
-    private String last_name;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String firstname;
+    private String lastname;
     private String email;
     private String password;
     private String gender;
