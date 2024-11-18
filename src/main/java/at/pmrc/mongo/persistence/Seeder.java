@@ -1,9 +1,12 @@
 package at.pmrc.mongo.persistence;
 
-import at.pmrc.mongo.model.*;
-import at.pmrc.mongo.persistence.repositories.*;
+import at.pmrc.mongo.model.Question;
+import at.pmrc.mongo.model.User;
+import at.pmrc.mongo.model.Vote;
+import at.pmrc.mongo.persistence.repositories.QuestionRepository;
+import at.pmrc.mongo.persistence.repositories.UserRepository;
+import at.pmrc.mongo.persistence.repositories.VoteRepository;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.data.repository.CrudRepository;
