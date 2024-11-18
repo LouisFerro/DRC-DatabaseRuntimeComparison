@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class DockerComposerRunner {
 
-    private static final String DOCKER_COMPOSE_FILE_PATH = "src/main/resources/docker/compose.yaml";
+    private static final String DOCKER_COMPOSE_FILE_PATH = "src/main/resources/database/compose.yaml";
 
     @PreDestroy
     public void stopDockerContainers() {
