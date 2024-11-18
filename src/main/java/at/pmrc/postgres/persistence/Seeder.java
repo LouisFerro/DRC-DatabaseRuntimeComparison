@@ -1,23 +1,21 @@
-package at.pmrc.mongo.persistence;
+package at.pmrc.postgres.persistence;
 
-import at.pmrc.mongo.model.Question;
-import at.pmrc.mongo.model.User;
-import at.pmrc.mongo.model.Vote;
-
-import at.pmrc.mongo.persistence.repositories.QuestionRepository;
-import at.pmrc.mongo.persistence.repositories.UserRepository;
-import at.pmrc.mongo.persistence.repositories.VoteRepository;
+import at.pmrc.postgres.model.Question;
+import at.pmrc.postgres.model.User;
+import at.pmrc.postgres.model.Vote;
+import at.pmrc.postgres.persistence.repositories.QuestionRepository;
+import at.pmrc.postgres.persistence.repositories.UserRepository;
+import at.pmrc.postgres.persistence.repositories.VoteRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
 import java.io.InputStream;
+import java.util.List;
 
-@Component("mongoSeeder")
+@Component("postgresSeeder")
 public class Seeder implements CommandLineRunner {
 
     private @Autowired QuestionRepository questionRepository;
