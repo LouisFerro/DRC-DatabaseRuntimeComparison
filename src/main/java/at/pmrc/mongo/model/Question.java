@@ -18,7 +18,7 @@ public class Question {
 
     @Id
     private ObjectId _id;
-    private int user_id;
+    private ObjectId user_id;
     private String content;
 
     @JsonFormat(pattern = "dd/mm/yyyy")

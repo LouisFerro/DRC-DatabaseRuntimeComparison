@@ -15,7 +15,7 @@ public class Vote {
 
     @Id
     private ObjectId _id;
-    private int user_id;
-    private int question_id;
+    private ObjectId user_id;
+    private ObjectId question_id;
     private boolean upvote;
 }
