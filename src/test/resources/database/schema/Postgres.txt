@@ -1,0 +1,26 @@
+CREATE DATABASE spengerhelp;
+\c spengerhelp;
+
+CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    firstname VARCHAR(255),
+    lastname VARCHAR(255),
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255),
+    gender VARCHAR(50),
+    year VARCHAR(50)
+);
+
+CREATE TABLE questions (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE votes (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id) ON DELETE CASCADE,
+    question_id INT REFERENCES questions(id) ON DELETE CASCADE,
+    upvote BOOLEAN
+);

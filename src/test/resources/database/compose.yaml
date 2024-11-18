@@ -1,0 +1,31 @@
+services:
+  postgres:
+    container_name: 5EHIF-DBI-PMRC-Postgres
+    image: postgres:16-alpine
+    ports:
+      - 5432:5432
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+
+  mongo:
+    container_name: 5EHIF-DBI-PMRC-Mongo
+    image: mongo:latest
+    ports:
+      - 27017:27017
+
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo
+      - MONGO_INITDB_ROOT_PASSWORD=mongo
+
+    volumes:
+      - data:/data
+
+volumes:
+  data: {}
+
+networks:
+  default:
+    name: mongodb_network
