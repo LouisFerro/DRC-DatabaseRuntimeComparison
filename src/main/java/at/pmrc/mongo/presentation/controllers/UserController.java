@@ -25,7 +25,7 @@ public class UserController {
     private User builder(UserRequest userRequest) {
         return new User(userRequest._id(), userRequest.firstname(), userRequest.lastname(), userRequest.email(), userRequest.password(), userRequest.gender(), userRequest.year());
     }
-    
+
     @GetMapping
     public HttpEntity<List<UserResult>> findAll() {
         List<UserResult> userResult = userRepository.findAll()
