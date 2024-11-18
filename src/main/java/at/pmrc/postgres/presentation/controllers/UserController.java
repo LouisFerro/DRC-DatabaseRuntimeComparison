@@ -1,7 +1,7 @@
-package at.pmrc.postgres.controllers;
+package at.pmrc.postgres.presentation.controllers;
 
 import at.pmrc.postgres.model.User;
-import at.pmrc.postgres.persistence.UserRepository;
+import at.pmrc.postgres.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/users")
+@RestController("postgresUserController")
+@RequestMapping("/api/postgres/user")
 public class UserController {
 
     @Autowired

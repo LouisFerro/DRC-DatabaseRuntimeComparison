@@ -1,7 +1,7 @@
-package at.pmrc.postgres.controllers;
+package at.pmrc.postgres.presentation.controllers;
 
 import at.pmrc.postgres.model.Vote;
-import at.pmrc.postgres.persistence.VoteRepository;
+import at.pmrc.postgres.persistence.repositories.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/votes")
+@RestController("postgresVoteController")
+@RequestMapping("/api/postgres/vote")
 public class VoteController {
 
     @Autowired

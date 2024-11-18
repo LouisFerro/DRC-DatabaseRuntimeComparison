@@ -1,7 +1,7 @@
-package at.pmrc.postgres.controllers;
+package at.pmrc.postgres.presentation.controllers;
 
 import at.pmrc.postgres.model.Question;
-import at.pmrc.postgres.persistence.QuestionRepository;
+import at.pmrc.postgres.persistence.repositories.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/questions")
+@RestController("postgresQuestionController")
+@RequestMapping("/api/postgres/question")
 public class QuestionController {
 
     @Autowired
