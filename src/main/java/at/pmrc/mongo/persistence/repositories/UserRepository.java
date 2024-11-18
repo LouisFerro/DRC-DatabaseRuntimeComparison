@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Repository
+@Repository("mongoUserRepository")
 public interface UserRepository extends MongoRepository<User, ObjectId> {
 
     Optional<User> findBy_id(ObjectId _id);

@@ -2,23 +2,24 @@ package at.pmrc.mongo.presentation.controllers;
 
 import at.pmrc.mongo.model.User;
 import at.pmrc.mongo.persistence.repositories.UserRepository;
+import at.pmrc.mongo.presentation.dataTransferObjects.*;
 
-import at.pmrc.mongo.presentation.dataTransferObjects.UserRequest;
-import at.pmrc.mongo.presentation.dataTransferObjects.UserResult;
 import lombok.*;
 import java.util.*;
 
 import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 
-@RestController
-@RequestMapping("/api/user")
+@RestController("mongoUserController")
+@RequestMapping("/api/mongo/user")
 public class UserController {
 
+    @Autowired
     private final UserRepository userRepository;
 
     private User builder(UserRequest userRequest) {
