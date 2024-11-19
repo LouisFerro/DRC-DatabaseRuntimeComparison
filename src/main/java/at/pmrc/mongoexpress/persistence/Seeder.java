@@ -10,10 +10,11 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component("mongoExpressSeeder")
-public class Seeder {
+public class Seeder implements CommandLineRunner {
 
     private @Autowired ForumRepository forumRepository;
 
+    @Override
     public void run(String... args) {
         seed("forum.json", forumRepository, Forum.class, args[0]);
     }

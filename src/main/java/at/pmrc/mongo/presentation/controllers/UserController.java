@@ -6,6 +6,7 @@ import at.pmrc.mongo.presentation.dataTransferObjects.*;
 
 import lombok.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,5 +61,15 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/gender")
+    public HttpEntity<Map<String, Long>> countByGender() {
+        List<User> users = userRepository.findAll();
+        Map<String, Long> genderCount = users.stream()
+                .collect(Collectors.groupingBy(User::getGender, Collectors.counting()));
+
+        return genderCount.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(genderCount);
     }
 }

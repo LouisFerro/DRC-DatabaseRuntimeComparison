@@ -3,11 +3,14 @@ package at.pmrc.postgres.presentation.controllers;
 import at.pmrc.postgres.model.User;
 import at.pmrc.postgres.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController("postgresUserController")
 @RequestMapping("/api/postgres/user")
@@ -58,5 +61,15 @@ public class UserController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/gender")
+    public HttpEntity<Map<String, Long>> countByGender() {
+        List<User> users = userRepository.findAll();
+        Map<String, Long> genderCount = users.stream()
+                .collect(Collectors.groupingBy(User::getGender, Collectors.counting()));
+
+        return genderCount.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(genderCount);
     }
 }

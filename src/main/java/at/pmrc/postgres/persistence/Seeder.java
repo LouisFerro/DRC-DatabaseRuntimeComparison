@@ -5,6 +5,7 @@ import at.pmrc.postgres.persistence.repositories.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +13,13 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component("postgresSeeder")
-public class Seeder {
+public class Seeder implements CommandLineRunner {
 
     private @Autowired QuestionRepository questionRepository;
     private @Autowired UserRepository userRepository;
     private @Autowired VoteRepository voteRepository;
 
+    @Override
     public void run(String... args) {
         seed("questions.json", questionRepository, Question.class, args[0]);
         seed("users.json", userRepository, User.class, args[0]);

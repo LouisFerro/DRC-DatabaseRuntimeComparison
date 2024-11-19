@@ -1,13 +1,17 @@
 package at.pmrc.mongoexpress.controllers;
 
+import at.pmrc.mongo.model.User;
 import at.pmrc.mongoexpress.model.Forum;
 import at.pmrc.mongoexpress.persistence.ForumRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/forums")
@@ -64,5 +68,15 @@ public class ForumController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/gender")
+    public HttpEntity<Map<String, Long>> countByGender() {
+        List<Forum> forums = forumRepository.findAll();
+        Map<String, Long> genderCount = forums.stream()
+                .collect(Collectors.groupingBy(Forum::getGender, Collectors.counting()));
+
+        return genderCount.isEmpty() ? ResponseEntity.noContent().build()
+                : ResponseEntity.ok(genderCount);
     }
 }

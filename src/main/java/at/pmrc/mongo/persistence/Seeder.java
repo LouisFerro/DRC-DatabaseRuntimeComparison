@@ -14,12 +14,13 @@ import java.util.List;
 import java.io.InputStream;
 
 @Component("mongoSeeder")
-public class Seeder {
+public class Seeder implements CommandLineRunner {
 
     private @Autowired QuestionRepository questionRepository;
     private @Autowired UserRepository userRepository;
     private @Autowired VoteRepository voteRepository;
 
+    @Override
     public void run(String... args) {
         seed("questions.json", questionRepository, Question.class, args[0]);
         seed("users.json", userRepository, User.class, args[0]);
