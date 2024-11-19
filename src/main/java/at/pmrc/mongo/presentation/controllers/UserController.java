@@ -45,6 +45,13 @@ public class UserController {
         return userResult.map(user -> ResponseEntity.ok(new UserResult(user))).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
+    @GetMapping("/gender/{id}")
+    public HttpEntity<UserGenderResult> findGenderById(@PathVariable Integer id) {
+        Optional<User> userResult = userRepository.findById(id);
+
+        return userResult.map(user -> ResponseEntity.ok(new UserGenderResult(user))).orElseGet(() -> ResponseEntity.noContent().build());
+    }
+
     @PostMapping
     public User create(@RequestBody UserRequest userRequest) {
         return userRepository.save(builder(userRequest));

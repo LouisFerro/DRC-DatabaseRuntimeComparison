@@ -1,6 +1,5 @@
 package at.pmrc;
 
-import at.pmrc.foundation.*;
 import at.pmrc.mongo.model.*;
 
 import at.pmrc.mongoexpress.model.Forum;
@@ -45,10 +44,10 @@ public class RuntimeComparisonTest {
     @Test
     public void performMongoExpressTasks() {
         measureExecutionTime(() -> forumSeeder.run("small"), "Seeding Mongo Express Database with 10 records");
-        measureExecutionTime(() -> forumSeeder.run("medium"), "Seeding Mongo Express Database with 10 records");
-        measureExecutionTime(() -> forumSeeder.run("big"), "Seeding Mongo Express Database with 10 records");
+        measureExecutionTime(() -> forumSeeder.run("medium"), "Seeding Mongo Express Database with 1000 records");
+        measureExecutionTime(() -> forumSeeder.run("big"), "Seeding Mongo Express Database with 100000 records");
 
-        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), " Express MongoDB Create Operation");
+        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), "Express MongoDB Create Operation");
         measureExecutionTime(() -> forumRepository.findById(1), "Express MongoDB Read Operation");
         measureExecutionTime(() -> {
             Forum forum = forumRepository.findById(1).orElseThrow();
@@ -62,7 +61,7 @@ public class RuntimeComparisonTest {
     public void performPostgresTasks() {
         measureExecutionTime(() -> postgresSeeder.run("small"), "Seeding Postgres Database with 10 records");
         measureExecutionTime(() -> postgresSeeder.run("medium"), "Seeding Postgres Database with 1000 records");
-        measureExecutionTime(() -> postgresSeeder.run("big"), "Seeding Postgres Database with 10000 records");
+        measureExecutionTime(() -> postgresSeeder.run("big"), "Seeding Postgres Database with 100000 records");
 
         measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "Postgres Create Operation");
         measureExecutionTime(() -> postgresUserRepository.findById(1), "Postgres Read Operation");

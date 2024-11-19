@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
@@ -27,5 +28,5 @@ public class Question{
     private int id;
     private int user_id;
     private String content;
-    private String creation_date;;
+    private Date creation_date;;
 }

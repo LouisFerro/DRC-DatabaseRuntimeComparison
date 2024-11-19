@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository("mongoExpressForumRepository")
 public interface ForumRepository extends MongoRepository<Forum, Integer> {
-    // Additional query methods can be added if needed
+
 }

@@ -1,5 +1,6 @@
 package at.pmrc.postgres.presentation.controllers;
 
+import at.pmrc.postgres.presentation.dataTransferObjects.UserGenderResult;
 import at.pmrc.postgres.model.User;
 import at.pmrc.postgres.persistence.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,13 @@ public class UserController {
     public ResponseEntity<User> getUserById(@PathVariable int id) {
         Optional<User> user = userRepository.findById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/gender/{id}")
+    public HttpEntity<UserGenderResult> findGenderById(@PathVariable Integer id) {
+        Optional<User> userResult = userRepository.findById(id);
+
+        return userResult.map(user -> ResponseEntity.ok(new UserGenderResult(user))).orElseGet(() -> ResponseEntity.noContent().build());
     }
 
     @PostMapping
