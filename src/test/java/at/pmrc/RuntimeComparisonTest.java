@@ -48,14 +48,14 @@ public class RuntimeComparisonTest {
         measureExecutionTime(() -> forumSeeder.run("medium"), "Seeding Mongo Express Database with 10 records");
         measureExecutionTime(() -> forumSeeder.run("big"), "Seeding Mongo Express Database with 10 records");
 
-        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), "MongoDB Create Operation");
-        measureExecutionTime(() -> forumRepository.findById(1), "MongoDB Read Operation");
+        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), " Express MongoDB Create Operation");
+        measureExecutionTime(() -> forumRepository.findById(1), "Express MongoDB Read Operation");
         measureExecutionTime(() -> {
             Forum forum = forumRepository.findById(1).orElseThrow();
             forum.setFirstname("Louis");
             forumRepository.save(forum);
-        }, "MongoDB Update Operation");
-        measureExecutionTime(() -> forumRepository.deleteById(1), "MongoDB Delete Operation");
+        }, "Express MongoDB Update Operation");
+        measureExecutionTime(() -> forumRepository.deleteById(1), "Express MongoDB Delete Operation");
     }
 
     @Test
@@ -64,14 +64,14 @@ public class RuntimeComparisonTest {
         measureExecutionTime(() -> postgresSeeder.run("medium"), "Seeding Postgres Database with 1000 records");
         measureExecutionTime(() -> postgresSeeder.run("big"), "Seeding Postgres Database with 10000 records");
 
-        measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "MongoDB Create Operation");
-        measureExecutionTime(() -> postgresUserRepository.findById(1), "MongoDB Read Operation");
+        measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "Postgres Create Operation");
+        measureExecutionTime(() -> postgresUserRepository.findById(1), "Postgres Read Operation");
         measureExecutionTime(() -> {
             at.pmrc.postgres.model.User user = postgresUserRepository.findById(1).orElseThrow();
             user.setFirstname("Louis");
             postgresUserRepository.save(user);
-        }, "MongoDB Update Operation");
-        measureExecutionTime(() -> postgresUserRepository.deleteById(1), "MongoDB Delete Operation");
+        }, "Postgres Update Operation");
+        measureExecutionTime(() -> postgresUserRepository.deleteById(1), "Postgres Delete Operation");
     }
 
     private void measureExecutionTime(Runnable task, String taskDescription) {
