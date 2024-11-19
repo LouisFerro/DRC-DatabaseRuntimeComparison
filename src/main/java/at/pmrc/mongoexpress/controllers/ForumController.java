@@ -22,7 +22,7 @@ public class ForumController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Forum> getForumById(@PathVariable Integer id) {
+    public ResponseEntity<Forum> getForumById(@PathVariable int id) {
         Optional<Forum> forum = forumRepository.findById(id);
         return forum.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -33,7 +33,7 @@ public class ForumController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Forum> updateForum(@PathVariable Integer id, @RequestBody Forum forumDetails) {
+    public ResponseEntity<Forum> updateForum(@PathVariable int id, @RequestBody Forum forumDetails) {
         Optional<Forum> forumOptional = forumRepository.findById(id);
 
         if (forumOptional.isPresent()) {
@@ -55,7 +55,7 @@ public class ForumController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteForum(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteForum(@PathVariable int id) {
         Optional<Forum> forum = forumRepository.findById(id);
 
         if (forum.isPresent()) {

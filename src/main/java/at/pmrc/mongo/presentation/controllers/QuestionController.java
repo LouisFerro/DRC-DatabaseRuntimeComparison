@@ -39,7 +39,7 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public HttpEntity<QuestionResult> findById(@PathVariable String id) {
-        Optional<Question> questionResult = questionRepository.findById(new ObjectId(id));
+        Optional<Question> questionResult = questionRepository.findById(id);
 
         return questionResult.map(question -> ResponseEntity.ok(new QuestionResult(question))).orElseGet(() -> ResponseEntity.noContent().build());
     }
