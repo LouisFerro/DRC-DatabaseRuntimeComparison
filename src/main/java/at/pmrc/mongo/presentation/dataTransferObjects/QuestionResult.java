@@ -5,8 +5,8 @@ import org.bson.types.ObjectId;
 
 import java.util.Date;
 
-public record QuestionResult(ObjectId _id,
-                             ObjectId user_id,
+public record QuestionResult(Integer _id,
+                             Integer user_id,
                              String content,
                              Date creation_date) {
 

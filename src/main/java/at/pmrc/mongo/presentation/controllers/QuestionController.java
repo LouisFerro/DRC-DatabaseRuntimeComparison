@@ -38,7 +38,7 @@ public class QuestionController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<QuestionResult> findById(@PathVariable String id) {
+    public HttpEntity<QuestionResult> findById(@PathVariable Integer id) {
         Optional<Question> questionResult = questionRepository.findById(id);
 
         return questionResult.map(question -> ResponseEntity.ok(new QuestionResult(question))).orElseGet(() -> ResponseEntity.noContent().build());
@@ -50,8 +50,8 @@ public class QuestionController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteQuestion(@PathVariable String id) {
-        Optional<Question> questionResult = questionRepository.findById(new ObjectId(id));
+    public ResponseEntity<Void> deleteQuestion(@PathVariable Integer id) {
+        Optional<Question> questionResult = questionRepository.findById(id);
 
         if (questionResult.isPresent()) {
             questionRepository.delete(questionResult.get());

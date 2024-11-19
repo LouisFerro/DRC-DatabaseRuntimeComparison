@@ -9,9 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.*;
 
 @Repository("mongoUserRepository")
-public interface UserRepository extends MongoRepository<User, ObjectId> {
+public interface UserRepository extends MongoRepository<User, Integer> {
 
-    Optional<User> findBy_id(ObjectId _id);
+    Optional<User> findBy_id(Integer _id);
 
     List<User> findByFirstnameAndLastname(String firstname, String lastname);
 

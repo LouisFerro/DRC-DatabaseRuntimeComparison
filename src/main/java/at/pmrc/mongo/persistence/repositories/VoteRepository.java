@@ -7,6 +7,6 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository("mongoVoteRepository")
-public interface VoteRepository extends MongoRepository<Vote, ObjectId> {
+public interface VoteRepository extends MongoRepository<Vote, Integer> {
 
 }

@@ -17,8 +17,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 public class Question {
 
     @Id
-    private ObjectId _id;
-    private ObjectId user_id;
+    private int _id;
+    private int user_id;
     private String content;
 
     @JsonFormat(pattern = "dd/mm/yyyy")

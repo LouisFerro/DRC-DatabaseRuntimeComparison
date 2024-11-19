@@ -67,9 +67,9 @@ public class RuntimeComparisonTest {
         measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "MongoDB Create Operation");
         measureExecutionTime(() -> postgresUserRepository.findById(1), "MongoDB Read Operation");
         measureExecutionTime(() -> {
-            User user = postgresUserRepository.findById(1).orElseThrow();
+            at.pmrc.postgres.model.User user = postgresUserRepository.findById(1).orElseThrow();
             user.setFirstname("Louis");
-            mongoUserRepository.save(user);
+            postgresUserRepository.save(user);
         }, "MongoDB Update Operation");
         measureExecutionTime(() -> postgresUserRepository.deleteById(1), "MongoDB Delete Operation");
     }

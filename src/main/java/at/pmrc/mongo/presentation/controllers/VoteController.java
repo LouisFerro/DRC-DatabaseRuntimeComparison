@@ -38,8 +38,8 @@ public class VoteController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<VoteResult> findById(@PathVariable String id) {
-        Optional<Vote> voteResult = voteRepository.findById(new ObjectId(id));
+    public HttpEntity<VoteResult> findById(@PathVariable Integer id) {
+        Optional<Vote> voteResult = voteRepository.findById(id);
 
         return voteResult.map(vote -> ResponseEntity.ok(new VoteResult(vote))).orElseGet(() -> ResponseEntity.noContent().build());
     }
@@ -50,8 +50,8 @@ public class VoteController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteVote(@PathVariable String id) {
-        Optional<Vote> voteResult = voteRepository.findById(new ObjectId(id));
+    public ResponseEntity<Void> deleteVote(@PathVariable Integer id) {
+        Optional<Vote> voteResult = voteRepository.findById(id);
 
         if (voteResult.isPresent()) {
             voteRepository.delete(voteResult.get());

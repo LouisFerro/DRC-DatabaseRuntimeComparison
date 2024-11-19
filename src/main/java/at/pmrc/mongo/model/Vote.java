@@ -14,8 +14,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Vote {
 
     @Id
-    private ObjectId _id;
-    private ObjectId user_id;
-    private ObjectId question_id;
+    private int _id;
+    private int user_id;
+    private int question_id;
     private boolean upvote;
 }

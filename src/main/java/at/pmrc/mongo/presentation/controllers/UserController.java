@@ -38,8 +38,8 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<UserResult> findById(@PathVariable String id) {
-        Optional<User> userResult = userRepository.findById(new ObjectId(id));
+    public HttpEntity<UserResult> findById(@PathVariable Integer id) {
+        Optional<User> userResult = userRepository.findById(id);
 
         return userResult.map(user -> ResponseEntity.ok(new UserResult(user))).orElseGet(() -> ResponseEntity.noContent().build());
     }
@@ -50,8 +50,8 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
-        Optional<User> userResult = userRepository.findById(new ObjectId(id));
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        Optional<User> userResult = userRepository.findById(id);
 
         if (userResult.isPresent()) {
             userRepository.delete(userResult.get());
