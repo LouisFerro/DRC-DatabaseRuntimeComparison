@@ -35,16 +35,19 @@ public class ForumController {
     @PutMapping("/{id}")
     public ResponseEntity<Forum> updateForum(@PathVariable Integer id, @RequestBody Forum forumDetails) {
         Optional<Forum> forumOptional = forumRepository.findById(id);
+
         if (forumOptional.isPresent()) {
             Forum forum = forumOptional.get();
             forum.setFirstname(forumDetails.getFirstname());
             forum.setLastname(forumDetails.getLastname());
             forum.setGender(forumDetails.getGender());
-            forum.setEnail(forumDetails.getEnail());
+            forum.setEmail(forumDetails.getEmail());
             forum.setPassword(forumDetails.getPassword());
             forum.setYear(forumDetails.getYear());
             forum.setQuestions(forumDetails.getQuestions());
+
             Forum updatedForum = forumRepository.save(forum);
+
             return ResponseEntity.ok(updatedForum);
         } else {
             return ResponseEntity.notFound().build();
@@ -54,6 +57,7 @@ public class ForumController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteForum(@PathVariable Integer id) {
         Optional<Forum> forum = forumRepository.findById(id);
+
         if (forum.isPresent()) {
             forumRepository.delete(forum.get());
             return ResponseEntity.noContent().build();

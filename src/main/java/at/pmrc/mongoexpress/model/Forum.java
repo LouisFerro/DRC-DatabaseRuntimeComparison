@@ -21,7 +21,7 @@ public class Forum {
     private String firstname;
     private String lastname;
     private String gender;
-    private String enail;
+    private String email;
     private String password;
     private String year;
     private List<Question> questions;
