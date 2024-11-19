@@ -4,7 +4,7 @@ import org.bson.types.ObjectId;
 
 import java.util.Date;
 
-public record QuestionRequest(ObjectId _id,
-                              ObjectId user_id,
+public record QuestionRequest(int _id,
+                              int user_id,
                               String content,
                               Date creation_date) { }
