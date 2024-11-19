@@ -9,5 +9,4 @@ import lombok.NoArgsConstructor;
 
 public class Vote {
     private Boolean upvote;
-    private Integer user_id;
 }
