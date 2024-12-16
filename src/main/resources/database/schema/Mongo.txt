@@ -6,7 +6,7 @@ Collection Questions:
 	_id: Int,
 	content: String,
 	user_id: Int,
-	creationDate: Date 
+	creation_date: String
 
 }
 
