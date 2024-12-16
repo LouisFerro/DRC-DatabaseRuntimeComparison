@@ -1,7 +1,6 @@
 package at.pmrc.mongo.presentation.dataTransferObjects;
 
 import at.pmrc.mongo.model.User;
-import org.bson.types.ObjectId;
 
 public record UserResult(int _id,
                          String firstname,

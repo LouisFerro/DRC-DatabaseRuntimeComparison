@@ -1,13 +1,9 @@
 package at.pmrc.mongoexpress.model;
 
-import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.Data;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Id;
 import java.util.List;
+import lombok.*;
 
 @Data
 @AllArgsConstructor

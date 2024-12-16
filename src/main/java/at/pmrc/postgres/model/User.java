@@ -1,14 +1,7 @@
 package at.pmrc.postgres.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.AbstractPersistable;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)

@@ -1,17 +1,14 @@
 package at.pmrc.mongoexpress.controllers;
 
-import at.pmrc.mongo.model.User;
 import at.pmrc.mongoexpress.model.Forum;
 import at.pmrc.mongoexpress.persistence.ForumRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
+
 import java.util.stream.Collectors;
+import java.util.*;
 
 @RestController
 @RequestMapping("/forums")

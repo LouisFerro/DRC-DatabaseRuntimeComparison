@@ -1,10 +1,10 @@
 package at.pmrc.postgres.presentation.dataTransferObjects;
 
-import at.pmrc.mongo.model.User;
+import at.pmrc.postgres.model.User;
 import lombok.Builder;
 
 @Builder
-public record UserRequest(int _id,
+public record UserRequest(int id,
                           String firstname,
                           String lastname,
                           String email,
@@ -13,6 +13,6 @@ public record UserRequest(int _id,
                           String year) {
 
     public static UserRequest New (User user) {
-        return new UserRequest(user.get_id(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getPassword(), user.getGender(), user.getYear());
+        return new UserRequest(user.getId(), user.getFirstname(), user.getLastname(), user.getEmail(), user.getPassword(), user.getGender(), user.getYear());
     }
 }

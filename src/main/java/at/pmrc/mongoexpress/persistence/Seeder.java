@@ -1,5 +1,7 @@
 package at.pmrc.mongoexpress.persistence;
+
 import at.pmrc.mongoexpress.model.Forum;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -10,11 +12,10 @@ import java.io.InputStream;
 import java.util.List;
 
 @Component("mongoExpressSeeder")
-public class Seeder implements CommandLineRunner {
+public class Seeder {
 
     private @Autowired ForumRepository forumRepository;
 
-    @Override
     public void run(String... args) {
         seed("forum.json", forumRepository, Forum.class, args[0]);
     }

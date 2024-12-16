@@ -2,7 +2,6 @@ package at.pmrc.mongo.model;
 
 import lombok.*;
 import jakarta.persistence.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data

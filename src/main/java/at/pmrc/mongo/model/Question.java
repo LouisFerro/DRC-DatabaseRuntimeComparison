@@ -1,10 +1,8 @@
 package at.pmrc.mongo.model;
 
 import lombok.*;
-import java.util.Date;
 
 import jakarta.persistence.*;
-import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -22,5 +20,5 @@ public class Question {
     private String content;
 
     @JsonFormat(pattern = "dd/mm/yyyy")
-    private Date creation_date;
+    private String creation_date;
 }

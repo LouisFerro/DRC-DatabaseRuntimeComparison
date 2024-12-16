@@ -5,16 +5,15 @@ import at.pmrc.mongo.persistence.repositories.VoteRepository;
 import at.pmrc.mongo.presentation.dataTransferObjects.*;
 
 import lombok.RequiredArgsConstructor;
-import java.util.List;
-import java.util.Optional;
 
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.*;
+
+import java.util.*;
 
 @RequiredArgsConstructor
+
 @RestController("mongoVoteController")
 @RequestMapping("/api/mongo/vote")
 public class VoteController {

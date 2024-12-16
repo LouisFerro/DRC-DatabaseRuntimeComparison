@@ -2,7 +2,6 @@ package at.pmrc.mongo.presentation.dataTransferObjects;
 
 import at.pmrc.mongo.model.User;
 import lombok.*;
-import org.bson.types.ObjectId;
 
 @Builder
 public record UserRequest(int _id,
