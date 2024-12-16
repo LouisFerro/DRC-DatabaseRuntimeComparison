@@ -9,7 +9,7 @@
 		<relativePath/>
 	</parent>
 	<groupId>at.pmrc</groupId>
-	<artifactId>PMRC</artifactId>
+	<artifactId>PMRC-PostgresMongoRuntimeComparison</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Postgres Mongo Runtime Comparison</name>
 	<description>A Backend which provides interfaces for PostgreSQL &amp; MongoDB Databases, in order to check the execution time for various operations</description>
@@ -77,7 +77,11 @@
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>2.2.0</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.github.lalyos</groupId>
+			<artifactId>jfiglet</artifactId>
+			<version>0.0.8</version>
+		</dependency>
 	</dependencies>
 
 	<build>

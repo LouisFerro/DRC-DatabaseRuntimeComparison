@@ -1,12 +1,15 @@
 package at.pmrc;
 
-import at.pmrc.mongo.model.*;
-
 import at.pmrc.mongoexpress.model.Forum;
-import org.junit.jupiter.api.Test;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.junit.jupiter.api.Test;
+
+import com.github.lalyos.jfiglet.FigletFont;
+
+import java.io.IOException;
 
 @SpringBootTest
 public class RuntimeComparisonTest {
@@ -26,58 +29,66 @@ public class RuntimeComparisonTest {
     private @Autowired at.pmrc.postgres.persistence.Seeder postgresSeeder;
 
     @Test
-    public void performMongoTasks() {
-        measureExecutionTime(() -> mongoSeeder.run("small"), "Seeding Mongo Database with 10 records");
-        measureExecutionTime(() -> mongoSeeder.run("medium"), "Seeding Mongo Database with 1000 records");
-        measureExecutionTime(() -> mongoSeeder.run("big"), "Seeding Mongo Database with 10000 records");
+    public void runtimeComparison() throws IOException {
+        System.out.println(FigletFont.convertOneLine("PMRC-PostgresMongoRuntimeComparison"));
 
-        measureExecutionTime(() -> mongoUserRepository.save(new at.pmrc.mongo.model.User()), "MongoDB Create Operation");
-        measureExecutionTime(() -> mongoUserRepository.findById(1), "MongoDB Read Operation");
-        measureExecutionTime(() -> {
+        System.out.format("+----------------------------------------------------+------------+------------+------------+%n");
+        System.out.format("| OPERATION                                          | DATABASE   | MODEL      | TIME (ms)  |%n");
+        System.out.format("+----------------------------------------------------+------------+------------+------------+%n");
+
+        // Stage 1: Perform Mongo Tasks
+
+        measureExecutionTime(() -> mongoSeeder.run("small"), "Seeding 10 records", "Mongo", "Relational");
+        measureExecutionTime(() -> mongoSeeder.run("medium"), "Seeding 1000 records", "Mongo", "Relational");
+        measureExecutionTime(() -> mongoSeeder.run("big"), "Seeding 10000 records", "Mongo", "Relational");
+
+        measureExecutionTime(() -> mongoUserRepository.save(new at.pmrc.mongo.model.User()), "Creating 1 record ", "Mongo", "Relational");
+        measureExecutionTime(() -> mongoUserRepository.findById(1), "Reading 1 record", "Mongo", "Relational");
+        /* measureExecutionTime(() -> {
             User user = mongoUserRepository.findById(1).orElseThrow();
             user.setFirstname("Louis");
             mongoUserRepository.save(user);
-        }, "MongoDB Update Operation");
-        measureExecutionTime(() -> mongoUserRepository.deleteById(1), "MongoDB Delete Operation");
-    }
+        }, "Updating 1 record", "Mongo", "Embedded");*/
+        measureExecutionTime(() -> mongoUserRepository.deleteById(1), "Deleting 1 record", "Mongo", "Relational");
 
-    @Test
-    public void performMongoExpressTasks() {
-        measureExecutionTime(() -> forumSeeder.run("small"), "Seeding Mongo Express Database with 10 records");
-        measureExecutionTime(() -> forumSeeder.run("medium"), "Seeding Mongo Express Database with 1000 records");
-        measureExecutionTime(() -> forumSeeder.run("big"), "Seeding Mongo Express Database with 100000 records");
+        // Stage 2: Perform Mongo Express Tasks
 
-        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), "Express MongoDB Create Operation");
-        measureExecutionTime(() -> forumRepository.findById(1), "Express MongoDB Read Operation");
+        measureExecutionTime(() -> forumSeeder.run("small"), "Seeding 10 records", "Mongo", "Embedded");
+        measureExecutionTime(() -> forumSeeder.run("medium"), "Seeding 1000 records", "Mongo", "Embedded");
+        measureExecutionTime(() -> forumSeeder.run("big"), "Seeding 100000 records", "Mongo", "Embedded");
+
+        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), "Creating 1 record", "Mongo", "Embedded");
+        measureExecutionTime(() -> forumRepository.findById(1), "Reading 1 record", "Mongo", "Embedded");
         measureExecutionTime(() -> {
             Forum forum = forumRepository.findById(1).orElseThrow();
             forum.setFirstname("Louis");
             forumRepository.save(forum);
-        }, "Express MongoDB Update Operation");
-        measureExecutionTime(() -> forumRepository.deleteById(1), "Express MongoDB Delete Operation");
-    }
+        }, "Updating 1 record", "Mongo", "Embedded");
+        measureExecutionTime(() -> forumRepository.deleteById(1), "Deleting 1 record", "Mongo", "Embedded");
 
-    @Test
-    public void performPostgresTasks() {
-        measureExecutionTime(() -> postgresSeeder.run("small"), "Seeding Postgres Database with 10 records");
-        measureExecutionTime(() -> postgresSeeder.run("medium"), "Seeding Postgres Database with 1000 records");
-        measureExecutionTime(() -> postgresSeeder.run("big"), "Seeding Postgres Database with 100000 records");
+        // Stage 3: Perform Postgres Tasks
 
-        measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "Postgres Create Operation");
-        measureExecutionTime(() -> postgresUserRepository.findById(1), "Postgres Read Operation");
+        measureExecutionTime(() -> postgresSeeder.run("small"), "Seeding 10 records", "Postgres", "Relational");
+        measureExecutionTime(() -> postgresSeeder.run("medium"), "Seeding 1000 records", "Postgres", "Relational");
+        measureExecutionTime(() -> postgresSeeder.run("big"), "Seeding 10000 records", "Postgres", "Relational");
+
+        measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "Creating 1 record", "Postgres", "Relational");
+        measureExecutionTime(() -> postgresUserRepository.findById(1), "Creating 1 record", "Postgres", "Relational");
         measureExecutionTime(() -> {
-            at.pmrc.postgres.model.User user = postgresUserRepository.findById(1).orElseThrow();
+            at.pmrc.postgres.model.User user = postgresUserRepository.findById(1).get();
             user.setFirstname("Louis");
             postgresUserRepository.save(user);
-        }, "Postgres Update Operation");
-        measureExecutionTime(() -> postgresUserRepository.deleteById(1), "Postgres Delete Operation");
+        }, "Updating 1 record", "Postgres", "Relational");
+        measureExecutionTime(() -> postgresUserRepository.deleteById(1), "Deleting 1 record", "Postgres", "Relational");
     }
 
-    private void measureExecutionTime(Runnable task, String taskDescription) {
+    private void measureExecutionTime(Runnable operation, String taskDescription, String database, String type) {
         long startTime = System.currentTimeMillis();
-        task.run();
+        operation.run();
         long endTime = System.currentTimeMillis();
+        long executionTime = endTime - startTime;
 
-        System.out.println(taskDescription + ": " + (endTime - startTime) + "ms");
+        System.out.format("| %-50s | %-10s | %-10s | %-10d |%n", taskDescription, database, type, executionTime);
+        System.out.format("+----------------------------------------------------+------------+------------+------------+%n");
     }
 }
