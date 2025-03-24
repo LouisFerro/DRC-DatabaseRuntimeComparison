@@ -1,6 +1,12 @@
 package at.pmrc;
 
-import at.pmrc.mongoexpress.model.Forum;
+import at.pmrc.systems.relational.mongo.persistence.reposiories.ForumRepository;
+import at.pmrc.systems.relational.mongo.persistence.Seeder;
+import at.pmrc.systems.relational.postgres.model.User;
+import at.pmrc.systems.relational.postgres.persistence.repositories.QuestionRepository;
+import at.pmrc.systems.relational.postgres.persistence.repositories.UserRepository;
+import at.pmrc.systems.relational.postgres.persistence.repositories.VoteRepository;
+import at.pmrc.systems.relational.mongo.model.Forum;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +20,19 @@ import java.io.IOException;
 @SpringBootTest
 public class RuntimeComparisonTest {
 
-    private @Autowired at.pmrc.mongo.persistence.repositories.QuestionRepository mongoQuestionRepository;
-    private @Autowired at.pmrc.mongo.persistence.repositories.UserRepository mongoUserRepository;
-    private @Autowired at.pmrc.mongo.persistence.repositories.VoteRepository mongoVoteRepository;
+    private @Autowired at.pmrc.systems.documental.mongo.persistence.repositories.QuestionRepository mongoQuestionRepository;
+    private @Autowired at.pmrc.systems.documental.mongo.persistence.repositories.UserRepository mongoUserRepository;
+    private @Autowired at.pmrc.systems.documental.mongo.persistence.repositories.VoteRepository mongoVoteRepository;
 
-    private @Autowired at.pmrc.postgres.persistence.repositories.QuestionRepository postgresQuestionRepository;
-    private @Autowired at.pmrc.postgres.persistence.repositories.UserRepository postgresUserRepository;
-    private @Autowired at.pmrc.postgres.persistence.repositories.VoteRepository postgresVoteRepository;
+    private @Autowired QuestionRepository postgresQuestionRepository;
+    private @Autowired UserRepository postgresUserRepository;
+    private @Autowired VoteRepository postgresVoteRepository;
 
-    private @Autowired at.pmrc.mongoexpress.persistence.ForumRepository forumRepository;
+    private @Autowired ForumRepository forumRepository;
 
-    private @Autowired at.pmrc.mongo.persistence.Seeder mongoSeeder;
-    private @Autowired at.pmrc.mongoexpress.persistence.Seeder forumSeeder;
-    private @Autowired at.pmrc.postgres.persistence.Seeder postgresSeeder;
+    private @Autowired at.pmrc.systems.documental.mongo.persistence.Seeder mongoSeeder;
+    private @Autowired Seeder forumSeeder;
+    private @Autowired at.pmrc.systems.relational.postgres.persistence.Seeder postgresSeeder;
 
     @Test
     public void runtimeComparison() throws IOException {
@@ -42,7 +48,7 @@ public class RuntimeComparisonTest {
         measureExecutionTime(() -> mongoSeeder.run("medium"), "Seeding 1000 records", "Mongo", "Relational");
         measureExecutionTime(() -> mongoSeeder.run("big"), "Seeding 10000 records", "Mongo", "Relational");
 
-        measureExecutionTime(() -> mongoUserRepository.save(new at.pmrc.mongo.model.User()), "Creating 1 record ", "Mongo", "Relational");
+        measureExecutionTime(() -> mongoUserRepository.save(new at.pmrc.systems.documental.mongo.model.User()), "Creating 1 record ", "Mongo", "Relational");
         measureExecutionTime(() -> mongoUserRepository.findById(1), "Reading 1 record", "Mongo", "Relational");
         /* measureExecutionTime(() -> {
             User user = mongoUserRepository.findById(1).orElseThrow();
@@ -57,7 +63,7 @@ public class RuntimeComparisonTest {
         measureExecutionTime(() -> forumSeeder.run("medium"), "Seeding 1000 records", "Mongo", "Embedded");
         measureExecutionTime(() -> forumSeeder.run("big"), "Seeding 100000 records", "Mongo", "Embedded");
 
-        measureExecutionTime(() -> forumRepository.save(new at.pmrc.mongoexpress.model.Forum()), "Creating 1 record", "Mongo", "Embedded");
+        measureExecutionTime(() -> forumRepository.save(new Forum()), "Creating 1 record", "Mongo", "Embedded");
         measureExecutionTime(() -> forumRepository.findById(1), "Reading 1 record", "Mongo", "Embedded");
         measureExecutionTime(() -> {
             Forum forum = forumRepository.findById(1).orElseThrow();
@@ -72,10 +78,10 @@ public class RuntimeComparisonTest {
         measureExecutionTime(() -> postgresSeeder.run("medium"), "Seeding 1000 records", "Postgres", "Relational");
         measureExecutionTime(() -> postgresSeeder.run("big"), "Seeding 10000 records", "Postgres", "Relational");
 
-        measureExecutionTime(() -> postgresUserRepository.save(new at.pmrc.postgres.model.User()), "Creating 1 record", "Postgres", "Relational");
+        measureExecutionTime(() -> postgresUserRepository.save(new User()), "Creating 1 record", "Postgres", "Relational");
         measureExecutionTime(() -> postgresUserRepository.findById(1), "Creating 1 record", "Postgres", "Relational");
         measureExecutionTime(() -> {
-            at.pmrc.postgres.model.User user = postgresUserRepository.findById(1).get();
+            User user = postgresUserRepository.findById(1).get();
             user.setFirstname("Louis");
             postgresUserRepository.save(user);
         }, "Updating 1 record", "Postgres", "Relational");
